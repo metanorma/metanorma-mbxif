@@ -1,0 +1,472 @@
+= Metanorma taste for the MBx Interoperability Forum (MBx-IF)
+
+== Purpose
+
+This document provides basic configuration information for MBx-IF authors using
+Metanorma.
+
+This repository is managed collectively by the MBx-IF and Ribose.
+
+== About MBx-IF
+
+The MBx Interoperability Forum (MBx-IF) is an international, vendor-neutral
+operating framework dedicated to advancing the use of the STEP standard (ISO
+10303) for product data exchange and interoperability across various domains.
+
+MBx-IF is a collaborative effort between AFNeT, PDES, Inc., and prostep ivip.
+
+The MBx-IF addresses Computer-Aided-"x" (Design, Manufacturing, Inspection) (CAx),
+Product Data Management (PDM), Electrical Wiring Interconnection Systems (EWIS),
+and Computer-Aided Engineering (CAE).
+
+
+== Implementation details
+
+The `mbxif` document class of Metanorma is implemented as a Metanorma Taste, which
+is a set of customizations to Metanorma that implement the MBx-IF's specific
+requirements for document formatting and styling.
+
+The `mbxif` document class is defined in the `metanorma-taste` gem, which is
+automatically installed when you install the `metanorma` gem.
+
+
+== Types of documents
+
+MBx-IF publishes a variety of documents. Each type of document is referred to as
+a `doctype` in Metanorma.
+
+The `mbxif` document class supports the following `doctype` values:
+
+`recommended-practices`:: Recommended Practices. These are normative documents
+that define recommended technical practices.
+
+`general-guidelines`:: General Guidelines. These are informative documents that
+provide general guidance on implementation approaches and best practices.
+
+`test-suite`:: Test Suite. These are technical documents that specify testing
+methodologies, test cases, and validation procedures.
+
+
+== Authoring a MBx-IF document
+
+A MBx-IF document in Metanorma is realized with a Metanorma AsciiDoc file with
+the `.adoc` extension.
+
+In this file, include the appropriate document header attributes and its
+content.
+
+The necessary document header attributes and document structures are described
+in the following sections.
+
+
+== Document structure
+
+While there is no mandatory document structure of a MBx-IF document, the following sections are recommended:
+
+NOTE: The "Introduction" section is required for all document types.
+
+* (unnumbered) Overview (optional)
+* (unnumbered) Introduction
+* (Clause 1) Scope
+* (Clause 2) Normative references
+* (Clause 3) Terms and definitions
+* (Clause 4...n) Body of the recommended practices
+* (Annex A...n) Annexes (optional)
+* (unnumbered) Bibliography (optional)
+
+
+== Document header attributes
+
+=== General
+
+Syntax:
+
+[source,adoc]
+----
+= CAx-IF Recommended Practices for PMI Unicode String Specifications
+:doctype: recommended-practices
+:docnumber: 1
+:docidentifier: CAx-IF RP Unicode Strings (v1.0)
+:committee: CAx-IF
+:committee-type: technical
+:version: 1.0
+:issued-date: 2023-04-25
+:copyright-holder: CAx Interoperability Forum
+:mn-document-class: mbxif
+:language: en
+:toclevels: 3
+:toc-figures: true
+:toc-tables: true
+:imagesdir: images
+:mn-output-extensions: xml,html,pdf,rxl
+----
+
+Where,
+
+`= <title>`:: The document title. It may include a subtitle separated by a
+colon. This is overriden by the `:title-intro-en:` and `:title-main-en:`
+attributes.
+
+`:title-intro-en:`:: The introductory part of the document title in English.
+
+`:title-main-en:`:: The main part of the document title in English.
+
+`:docnumber:`:: The document number assigned by the MBx-IF.
+
+`:edition:`:: The numeric edition number of the document.
+
+`:revdate:`:: The revision date of the document in `YYYY-MM-DD` format.
+
+`:copyright-year:`:: The copyright year of the document.
+
+`:language:`:: The language of the document. This is usually `en` for English.
+
+`:committee:`:: The name of the committee that developed the document.
++
+[example]
+====
+`CAx-IF`, `PDM-IF`, `EWIS-IF`, `CAE-IF`, etc.
+====
+
+`:committee-type:`:: The type of committee. This is usually `technical`,
+as the MBx-IF documents are developed by technical committees.
+
+`:mn-document-class:`:: The Metanorma document class. This is always `mbxif` for
+MBx-IF documents.
+
+`:mn-output-extensions:`:: The output formats to generate. This is usually
+`xml,html,pdf,doc`.
+
+`:doctype:`:: The type of document. This must be one of the supported `doctype`
+values: `recommended-practices`, `general-guidelines`, `test-suite`.
+
+`:status:`:: The status of the document. This can be `draft`, `proposed`, or
+`published`.
+
+`:docidentifier:`:: The document identifier assigned by the MBx-IF.
+It takes the form of `MBx-IF <docnumber>:<year> (<version>)`, where `<version>` is
+in the form of `<major>.<minor>.<patch>`.
+
+`:draft:`:: (optional) This attribute is used to indicate that the document is a
+draft.
+
+`:imagesdir:`:: The directory where images used in the document are stored
+which is used as the root path of all image file references in the document.
+
+`:toc-figures:`:: (optional) This attribute is used to indicate that the
+document should include a list of figures. Value is `true` or `false`. Default is
+`false`.
+
+`:toc-tables:`:: (optional) This attribute is used to indicate that the
+document should include a list of tables. Value is `true` or `false`. Default is
+`false`.
+
+`:local-cache-only:`:: (optional)
+This attribute is used to indicate that the document
+should be processed using only local resources, without fetching any external
+resources.
+
+`:plantuml-image-format:`:: (optional, only when using PlantUML diagrams)
+The image format to use for PlantUML diagrams. This is usually "svg" for MBx-IF
+documents to render vector diagrams.
+
+
+=== Contributor information
+
+The MBx-IF documents prominently display the names of the
+contributors to the document. In the PDF format, the contributors
+are displayed on the back cover of the document.
+
+There are two types of contributors: leadership team members and
+participants. Leadership team members are listed first, followed by
+participants.
+
+Contributor information is specified in the document header using the following
+attributes:
+
+Contributors:
+
+[source,adoc]
+----
+:fullname[_{i}]: Full Name of the i-th leadership team member
+:affiliation[_{i}]: Affiliation of the i-th leadership team member (optional)
+:email[_{i}]: Email of the i-th leadership team member (optional)
+:role-description[_{i}]: Role in document development (CAx-IF, Technical)
+----
+
+Where,
+
+`:fullname[_{i}]:`:: The full name of the i-th leadership team member. The first
+member is specified with `:fullname:`, the second with `:fullname_2:`, and so on.
+
+`:role-description[_{i}]:`:: The role description of the i-th leadership team
+member. This is always `leadership`. The first member is specified with
+`:role-description:`, the second with `:role-description_2:`, and so on.
+
+`:contributor-position[_{i}]:`:: The position of the i-th leadership team member.
+The first member is specified with `:contributor-position:`, the second with
+`:contributor-position_2:`, and so on.
++
+[example]
+====
+"CAE-IF", "CAx-IF", "Technical", "LOTAR EAS"
+====
+
+.Example of contributor information for MBx-IF documents
+[example]
+====
+[source,adoc]
+----
+:fullname: Jochen Boy
+:affiliation: PROSTEP AG
+:email: jochen.boy@prostep.com
+:role-description: CAx-IF
+:fullname_2: Phil Rosché
+:affiliation_2: ACCR, LLC.
+:email_2: phil.rosche@accr-llc.com
+:role-description_2: CAx-IF
+----
+====
+
+
+=== Examples
+
+==== Recommended Practices
+
+[source,adoc]
+----
+= CAx-IF Recommended Practices for PMI Unicode String Specifications
+:doctype: recommended-practices
+:docnumber: 1
+:docidentifier: CAx-IF RP Unicode Strings (v1.0)
+:committee: CAx-IF
+:committee-type: technical
+:version: 1.0
+:issued-date: 2023-04-25
+:copyright-holder: CAx Interoperability Forum
+:mn-document-class: mbxif
+:language: en
+:toclevels: 3
+:toc-figures: true
+:toc-tables: true
+:imagesdir: images
+:mn-output-extensions: xml,html,pdf,rxl
+----
+
+==== General Guidelines
+
+[source,adoc]
+----
+= General Guidelines for the MBx Interoperability Forum
+:doctype: general-guidelines
+:docnumber: 1
+:docidentifier: MBx-IF GG (v2.0)
+:committee: MBx-IF
+:committee-type: technical
+:version: 2.0
+:revdate: 2023-06-23
+:copyright-holder: MBx Interoperability Forum
+:mn-document-class: mbxif
+:language: en
+:toclevels: 3
+:toc-figures: true
+:toc-tables: true
+:imagesdir: images
+:mn-output-extensions: xml,html,pdf,rxl
+----
+
+==== Test Suite
+
+[source,adoc]
+----
+= EWIS Interoperability Forum Test Suite v4.0
+:doctype: test-suite
+:docnumber: 1
+:docidentifier: EWIS-IF TS Version v4.0 (1.0)
+:committee: EWIS-IF
+:committee-type: technical
+:edition: 1.0
+:issued-date: 2021-12-09
+:mn-document-class: mbxif
+:toclevels: 3
+:toc-figures: true
+:toc-tables: true
+:imagesdir: images
+:mn-output-extensions: xml,html,pdf,rxl
+----
+
+
+
+== Document clause contents
+
+=== General
+
+Metanorma is a semantic textual processor that imposes particular syntax on
+structured elements.
+
+In particular, the bibliographic sections ("Normative references", "References",
+"Bibliography") and the "Terms and definitions" section support complex needs,
+with further details provided in official Metanorma documentation.
+
+=== Introduction
+
+The Introduction section provides a brief summary of the document's content,
+including its purpose, scope, and key points.
+
+.Example of an Introduction section
+[example]
+====
+[source,adoc]
+----
+== Introduction
+
+Product and Manufacturing Information (PMI) is used in 3D Computer-aided Design
+(CAD) systems to convey information about the product requirements for
+manufacturing, inspection, and sustainment, which supplements the geometric shape
+of the product. This includes but is not limited to dimensions, tolerances,
+surface finish, weld symbols, material specifications, and user-defined attributes
+defined as 3D annotations. A Unicode string representation of this information
+allows a consistent definition when translating into STEP.
+
+This report defines *rules* for Unicode strings of Geometric Dimensioning and
+Tolerancing (GD&T), Surface Finish, and Weld symbols as defined in ASME and ISO
+standards.
+----
+====
+
+=== Scope
+
+The Scope clause defines the subject matter and the extent of the document's
+coverage.
+
+.Example of a Scope clause
+[example]
+====
+[source,adoc]
+----
+== Scope
+
+*The following are within the scope of this document*:
+
+* Rules that define how GD&T, Surface Finish, and Weld symbol information should
+be represented as Unicode strings.
+* 4 letter Unicode representation of GD&T, Surface Finish and Weld symbols.
+
+*The following are out of the scope of this document*:
+
+* An exhaustive list of GD&T, Surface Finish, and Weld symbol examples.
+* Graphical and semantic representation of the GD&T.
+----
+====
+
+=== Normative references
+
+The Normative references clause lists the documents that are indispensable for
+the application of the document.
+
+.Example of the Normative references clause
+[example]
+====
+[source,adoc]
+----
+[bibliography]
+== Normative references
+
+* [[[ASME_Y14-5-2018,ASME Y14.5-2018]]]
+* [[[ASME_Y14-36-2018,ASME Y14.36-2018]]]
+* [[[ISO_2553,ISO 2553:2019]]]
+* [[[ISO_1101,ISO 1101:2017]]]
+* [[[ISO_14405-3,ISO 14405-3:2016]]]
+----
+====
+
+
+=== Terms and definitions
+
+The Terms and definitions clause provides definitions of terms used in the
+document. Each term is defined as a subclause.
+
+For detailed usage, please refer to Metanorma documentation.
+
+.Example of a Terms and definitions clause
+[example]
+====
+[source,adoc]
+----
+== Terms and definitions
+
+=== Concatenation
+
+In the context of digital data, string concatenation is the operation of joining
+more than one character string together. For example, concatenating the strings
+"hello" and "world" would result in the string "helloworld."
+
+In this document, each separate annotation entity that contains text or Unicode
+characters is defined as a separate string. However, as many of these strings are
+specified in a set and are related to one another, the strings may be concatenated
+into a larger superstring. Each string that makes up the superstring is readily
+identifiable as a separate string by its leading keyword, which will aid software
+queries intending to extract or understand a particular string, and represents a
+level of the semantic relationship between the constituent strings.
+
+=== Grouping
+
+Grouping is when a set of objects are combined to make a group of information.
+Grouping can be used to keep information within a compartment together.
+----
+====
+
+
+=== Annexes
+
+An annex is a section that provides additional information related to the main
+content of the document.
+
+Annexes can be normative or informative, set using the `obligation` attribute of
+the `[appendix]` element.
+
+.Example of an annex
+[example]
+====
+[source,adoc]
+----
+[appendix,obligation=informative]
+== NASTRAN Input File Full Listing
+
+...
+----
+====
+
+=== Bibliography
+
+The Bibliography section lists documents that are relevant to the document but
+not indispensable for its application.
+
+.Example of the Bibliography
+[example]
+====
+[source,adoc]
+----
+[bibliography]
+== Bibliography
+
+* [[[ISO_10303,ISO 10303 (all parts)]]]
+
+* [[[ISO_10303-242,ISO 10303-242:2019]]]
+
+* [[[AP242_BOM_XML_2019,AP242 BOM XML Assembly Structure]]],
+span:title[AP242 BOM XML Assembly Structure]
+span:date[2019-12-20]
+span:publisher[CAx Interoperability Forum]
+span:uri.citation[www.cax-if.org]
+span:edition[Release 2.1]
+----
+====
+
+
+== Copyright and license
+
+The MBx-IF logos and its textual material is copyright to the MBx
+Interoperability Forum.
+
+The remaining content is copyright to Ribose.

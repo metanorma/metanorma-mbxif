@@ -121,11 +121,18 @@ attributes.
 
 `:language:`:: The language of the document. This is usually `en` for English.
 
-`:committee:`:: The name of the committee that developed the document.
+`:committee:`:: The name of the committee that developed the document. There can
+be multiple committees encoded using the underscore suffix notation.
 +
 [example]
 ====
-`CAx-IF`, `PDM-IF`, `EWIS-IF`, `CAE-IF`, etc.
+[source,adoc]
+----
+:committee: CAx-IF
+:committee_type: technical
+:committee_2: JF-IF
+:committee-type_2: technical
+----
 ====
 
 `:committee-type:`:: The type of committee. This is usually `technical`,
@@ -177,9 +184,9 @@ The MBx-IF documents prominently display the names of the
 contributors to the document. In the PDF format, the contributors
 are displayed on the back cover of the document.
 
-There are two types of contributors: leadership team members and
-participants. Leadership team members are listed first, followed by
-participants.
+Every contributor in an MBx-IF document is separated into categories that are
+grouped and displayed. e.g. "LOTAR EAS", "CAx-IF", "Technical", etc. The
+category is expressed using the `:role-description:` attribute.
 
 Contributor information is specified in the document header using the following
 attributes:
@@ -188,29 +195,28 @@ Contributors:
 
 [source,adoc]
 ----
-:fullname[_{i}]: Full Name of the i-th leadership team member
-:affiliation[_{i}]: Affiliation of the i-th leadership team member (optional)
-:email[_{i}]: Email of the i-th leadership team member (optional)
+:fullname[_{i}]: Full Name of the i-th contributor
+:affiliation[_{i}]: Affiliation of the i-th contributor (optional)
+:email[_{i}]: Email of the i-th contributor (optional)
 :role-description[_{i}]: Role in document development (CAx-IF, Technical)
 ----
 
 Where,
 
-`:fullname[_{i}]:`:: The full name of the i-th leadership team member. The first
+`:fullname[_{i}]:`:: The full name of the i-th contributor. The first
 member is specified with `:fullname:`, the second with `:fullname_2:`, and so on.
 
-`:role-description[_{i}]:`:: The role description of the i-th leadership team
-member. This is always `leadership`. The first member is specified with
+`:role-description[_{i}]:`:: The role description of the i-th contributor.
+This is always `leadership`. The first member is specified with
 `:role-description:`, the second with `:role-description_2:`, and so on.
 
-`:contributor-position[_{i}]:`:: The position of the i-th leadership team member.
-The first member is specified with `:contributor-position:`, the second with
-`:contributor-position_2:`, and so on.
-+
-[example]
-====
-"CAE-IF", "CAx-IF", "Technical", "LOTAR EAS"
-====
+`:affiliation[_{i}]:`:: (optional) The affiliation (company/member represented)
+of the i-th contributor.
+
+`:email[_{i}]:`:: (optional) The email address of the i-th contributor.
+
+`:address[_{i}]:`, `:postcode[_{i}]:`, `:city[_{i}]:`, `:country[_{i}]:`::
+(optional) The address of the i-th contributor.
 
 .Example of contributor information for MBx-IF documents
 [example]
@@ -225,6 +231,56 @@ The first member is specified with `:contributor-position:`, the second with
 :affiliation_2: ACCR, LLC.
 :email_2: phil.rosche@accr-llc.com
 :role-description_2: CAx-IF
+----
+====
+
+.Example of contributor information (from CAE-IF HB Vol 2 (v1.1))
+[example]
+====
+[source,adoc]
+----
+:fullname: Jochen Boy
+:affiliation: PROSTEP AG
+:address: Dolivostraße 11
+:postcode: 64293
+:city: Darmstadt
+:country: Germany
+:email: jochen.boy@prostep.com
+:role-description: CAE-IF
+:fullname_2: Jean-Marc Crepel
+:affiliation_2: AFNeT
+:address_2: 30, Rue de Miromesnil
+:postcode_2: 75008
+:city_2: Paris
+:country_2: France
+:email_2: jean-marc.crepel@afnet.fr
+:role-description_2: CAE-IF
+:fullname_3: Phil Rosché
+:affiliation_3: ACCR, LLC.
+:address_3: 125 King Charles Circle
+:city_3: Summerville, SC
+:postcode_3: 29485
+:country_3: USA
+:email_3: phil.rosche@accr-llc.com
+:role-description_3: CAE-IF
+:fullname_4: Chris Johnson
+:role_4: Technical
+:affiliation_4: LOTAR EAS WG - Americas
+:affiliation_subdiv_4: Lockheed Martin
+:email_4: john.c.johnson@lmco.com
+:role-description_4: LOTAR EAS
+:fullname_5: Joseph G. Draper
+:role_5: Co-leader
+:affiliation_5: LOTAR EAS WG -- Americas
+:affiliation_subdiv_5: The Boeing Company
+:email_5: joseph.g.draper@boeing.com
+:role-description_5: LOTAR EAS
+:fullname_6: Albert Lévy
+:role_6: Co-leader
+:affiliation_6: LOTAR EAS WG - Europe
+:affiliation_subdiv_6: CIMPA on behalf of Airbus
+:email_6: albert.levy.external@airbus.com
+:role-description_6: LOTAR EAS
 ----
 ====
 
